@@ -16,7 +16,7 @@ export default function AuthForm() {
     }
 
     try {
-      const url = isLogin ? "http://backend:5000/login" : "http://backend:5000/signup";
+      const url = isLogin ? "http://13.233.251.58:5000/login" : "http://13.233.251.58:5000/signup";
       const payload = isLogin
         ? { email: form.email, password: form.password }
         : { username: form.username, email: form.email, password: form.password };

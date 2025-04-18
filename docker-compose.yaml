@@ -6,20 +6,22 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "80:3000"  
+      - "80:3000"
     depends_on:
       - backend
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-        - "5000:5000"
+      - "5000:5000"
+    depends_on:
+      - db
 
   db:
-    build:
-      context: ./db
-      dockerfile: Dockerfile
+    image: mysql:8.0
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydb
@@ -28,8 +30,9 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql-data:/var/lib/mysql 
+      - ./mysql-data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
 
 volumes:
-  mysql-data:  
-
+  mysql-data:
+  mysql-init:
